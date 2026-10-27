@@ -1,0 +1,31 @@
+name: Pipeline CI/CD
+
+# Dispara a pipeline em pushes e pull requests nas branches main e develop
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Baixa o código do repositório
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      # Configura a versão do Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Executa os testes automatizados
+      - name: Executar Testes
+        run: npm test
+
+      # Simula a etapa de Build/Sucesso
+      - name: Sucesso no Build
+        run: echo "Build e Testes executados com sucesso no GitHub Actions!"
